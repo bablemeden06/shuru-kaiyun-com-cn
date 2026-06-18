@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开云 · 日常查询与对照</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f9fafb;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.7;
+      color: #1f2937;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+    }
+    .container {
+      max-width: 680px;
+      width: 100%;
+    }
+
+    /* hero */
+    .hero {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 450;
+      letter-spacing: -0.02em;
+      color: #111827;
+      margin-bottom: 0.75rem;
+    }
+    .hero .sub {
+      font-size: 1rem;
+      color: #6b7280;
+      font-weight: 380;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* 通用卡片 */
+    .card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin: 2.5rem 0 2rem;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.8rem 1.8rem 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02), 0 8px 24px rgba(0,0,0,0.03);
+      transition: box-shadow 0.15s;
+    }
+    .card:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04), 0 12px 28px rgba(0,0,0,0.04);
+    }
+    .card .icon {
+      font-size: 1.8rem;
+      line-height: 1;
+      margin-bottom: 0.6rem;
+      opacity: 0.8;
+    }
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: #374151;
+      margin-bottom: 0.5rem;
+    }
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+    .card .tag {
+      display: inline-block;
+      background: #eef2f6;
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      color: #4b5563;
+      margin-top: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* 用途卡片 — 两列 */
+    .usage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .usage-item {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.2rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      border: 1px solid #f1f3f5;
+    }
+    .usage-item .label {
+      font-weight: 480;
+      font-size: 0.95rem;
+      color: #111827;
+      margin-bottom: 0.25rem;
+    }
+    .usage-item .desc {
+      font-size: 0.85rem;
+      color: #5f6b7a;
+    }
+
+    /* 段落 */
+    .paragraph {
+      margin: 2rem 0 1.8rem;
+      font-size: 0.98rem;
+      color: #374151;
+    }
+    .paragraph a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 450;
+      border-bottom: 1px solid #d1d9e6;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .paragraph a:hover {
+      border-bottom-color: #2563eb;
+      color: #1d4ed8;
+    }
+    .paragraph strong {
+      font-weight: 500;
+      color: #111827;
+    }
+
+    /* 适合人群 */
+    .audience {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      margin: 1.2rem 0;
+    }
+    .audience span {
+      background: #f1f4f9;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      color: #2d3a4e;
+    }
+
+    /* FAQ 摘要 */
+    .faq-tiny {
+      margin: 2.2rem 0 1.5rem;
+      padding: 1.2rem 1.5rem;
+      background: #f1f4f9;
+      border-radius: 20px;
+    }
+    .faq-tiny h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #1f2937;
+      margin-bottom: 0.6rem;
+    }
+    .faq-tiny p {
+      font-size: 0.88rem;
+      color: #4b5563;
+      margin-bottom: 0.4rem;
+    }
+    .faq-tiny .q {
+      font-weight: 450;
+      color: #1f2937;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 1.8rem 0;
+    }
+
+    .small-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 500px) {
+      .usage-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .card {
+        padding: 1.4rem 1.2rem;
+      }
+      body {
+        padding: 1.5rem 0.8rem 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- hero -->
+  <div class="hero">
+    <h1>开云 · 检索与对照</h1>
+    <div class="sub">一种日常信息整理方式，适合边查询、边对照、边延伸</div>
+  </div>
+
+  <!-- 主视觉卡片（信息卡片式） -->
+  <div class="card-grid">
+    <div class="card">
+      <div class="icon">🕊️</div>
+      <h3>从一条线索开始</h3>
+      <p>当你需要同时核对几个说法、对比一组条目，或者想沿着某个关键词继续读下去——<strong>开云</strong> 提供了一种轻量的参照环境。</p>
+      <p>没有复杂操作，只是把信息摊平，让你随时回到起点重新梳理。</p>
+      <span class="tag">检索 · 对照 · 延伸</span>
+    </div>
+  </div>
+
+  <!-- 用途卡片：两列 -->
+  <div class="usage-grid">
+    <div class="usage-item">
+      <div class="label">📋 条目对照</div>
+      <div class="desc">并列展示不同来源的描述，快速标记异同。</div>
+    </div>
+    <div class="usage-item">
+      <div class="label">🔍 延伸查询</div>
+      <div class="desc">从当前内容出发，打开关联页面继续阅读。</div>
+    </div>
+    <div class="usage-item">
+      <div class="label">📌 日常标记</div>
+      <div class="desc">记录值得保留的段落，方便回查。</div>
+    </div>
+    <div class="usage-item">
+      <div class="label">🧩 碎片整理</div>
+      <div class="desc">把散落的笔记、截图、链接拼成可浏览的页面。</div>
+    </div>
+  </div>
+
+  <!-- 适合人群 + 自然链接段落 -->
+  <div class="paragraph">
+    如果你习惯在查资料时同时打开好几个标签页，一边读一边记，或许会喜欢这种更安静的方式。
+    <strong>开云</strong> 适合那些需要反复确认细节、习惯把信息摊开来看的人。
+    无论是做功课、写东西，还是单纯想厘清一个话题，都可以尝试把内容放进来慢慢捋。
+    关于具体用法和结构，可以看一看 <a href="https://www.shuru-kaiyun.com.cn">开云</a> 里的说明，那里有更完整的介绍。
+  </div>
+
+  <!-- 适合人群标签 -->
+  <div class="audience">
+    <span>✎ 经常做笔记的人</span>
+    <span>⇆ 喜欢对照阅读的人</span>
+    <span>⚲ 需要整理信息源的人</span>
+    <span>◉ 习惯延伸浏览的人</span>
+  </div>
+
+  <!-- 第二个自然链接段落，嵌入句子 -->
+  <div class="paragraph">
+    很多时候我们需要的不是更多信息，而是把已有的信息重新组织一遍。
+    在 <a href="https://www.shuru-kaiyun.com.cn">开云</a> 上，你可以把自己找到的资料放进去，一边看一边调整，
+    像在桌上铺开几本书一样，随时翻回前面那页。
+  </div>
+
+  <!-- FAQ 摘要（简洁） -->
+  <div class="faq-tiny">
+    <h4>一些常见问题</h4>
+    <p><span class="q">Q：</span> 需要注册或安装吗？</p>
+    <p><span class="q">A：</span> 不用。直接打开页面就可以开始使用，所有操作都在浏览器里完成。</p>
+    <p><span class="q">Q：</span> 内容会保存吗？</p>
+    <p><span class="q">A：</span> 目前以本地临时存储为主，适合单次或短期的整理场景，详细说明可以在站内找到。</p>
+  </div>
+
+  <!-- 结尾提示：自然叙述 -->
+  <hr>
+  <div class="paragraph" style="font-size:0.9rem; color:#5f6b7a; margin-top:0;">
+    以上只是一个简单的方向介绍。如果你已经在用 <strong>开云</strong>，可能会发现更多适合自己的用法。
+    也可以从已有的东西开始，把零散的页面和想法放进去，慢慢变成一份可以反复翻阅的记录。
+  </div>
+
+  <div class="small-note">
+    — 日常查询、对照与延伸阅读 —
+  </div>
+</div>
+</body>
+</html>
